@@ -24,9 +24,9 @@ jobs:
       postgres:
         image: postgres:latest
         env:
-          POSTGRES_PASSWORD: ${{ env.DB_PASSWORD }}
-          POSTGRES_USER: ${{ env.DB_USER }}
-          POSTGRES_DB: ${{ env.DB_NAME }}
+          POSTGRES_PASSWORD: totem
+          POSTGRES_USER: totem
+          POSTGRES_DB: totem
           POSTGRES_HOST: localhost
         ports:
           - 5432:5432
