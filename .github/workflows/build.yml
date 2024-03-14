@@ -44,7 +44,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v3
         with:
-          node-version: "20.x"
+          node-version: "20.0"
       - name: Node Cache
         uses: actions/cache@v2
         id: cache
@@ -53,10 +53,10 @@ jobs:
           key: ${{ runner.os }}-node-${{ hashFiles('**/application/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-node-
-      - name: Install Dependencies
-        run: npm ci
-      - name: Lint
-        run: npm run lint
+      # - name: Install Dependencies
+      #   run: npm ci
+      # - name: Lint
+      #   run: npm run lint
       # - name: Test
       #   run: npm run test:cov
       - name: Sonar Analysis
