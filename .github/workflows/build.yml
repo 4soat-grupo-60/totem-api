@@ -1,10 +1,12 @@
 name: Build
+
 on:
   push:
     branches:
       - main
   pull_request:
     types: [opened, synchronize, reopened]
+
 jobs:
   sonarcloud:
     name: SonarCloud
@@ -18,8 +20,9 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-  postgres_ci:
-    name: POSTGRES CI
+
+  totem_ci:
+    name: TOTEM CI
     services:
       postgres:
         image: postgres:latest
@@ -53,15 +56,6 @@ jobs:
           key: ${{ runner.os }}-node-${{ hashFiles('**/application/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-node-
-      # - name: Install Dependencies
-      #   run: npm ci
-      # - name: Lint
-      #   run: npm run lint
-      # - name: Test
-      #   run: npm run test:cov
-      - name: Sonar Analysis
-        uses: SonarSource/sonarcloud-github-action@master
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      - name: Install Dependencies
+        run: npm ci
 
