@@ -14,3 +14,20 @@ spec:
       nodePort: 31000
   selector:
     app: totem-api
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: totem-api
+  namespace: totem
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-type: nlb
+    service.beta.kubernetes.io/aws-load-balancer-internal: "true"
+spec:
+  ports:
+    - port: 8080
+      protocol: TCP
+  type: LoadBalancer
+  selector:
+    app: totem-api
