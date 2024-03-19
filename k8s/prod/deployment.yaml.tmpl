@@ -22,14 +22,34 @@ spec:
     spec:
       containers:
       - name: totem-api
+        image: **LATEST_IMAGE
+        imagePullPolicy: Always
         envFrom:
         - configMapRef:
-       # - secretRef:
             name: totem-configmap
-        image: andrauss/tech_challenge_4soat_g60:latest
-        imagePullPolicy: Always
+        env:
+          - name: DB_HOST
+            valueFrom:
+              secretKeyRef:
+                name: totem-secret
+                key: host
+          - name: DB_PORT
+            valueFrom:
+              secretKeyRef:
+                name: totem-secret
+                key: port
+          - name: DB_USERNAME
+            valueFrom:
+              secretKeyRef:
+                name: totem-secret
+                key: username
+          - name: DB_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: totem-secret
+                key: password
         ports:
-        - containerPort: 3000
+        - containerPort: 8080
         resources:
           limits:
             cpu: 500m
@@ -37,9 +57,7 @@ spec:
           requests:
             cpu: 100m
             memory: 256Mi
-        workingDir: /var/www
-      imagePullSecrets:
-      - name: dockerhub
+        workingDir: /app
       restartPolicy: Always
       volumes:
       - hostPath:

@@ -1,0 +1,33 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    run: totem-api
+  name: totem-api
+  namespace: totem
+spec:
+  type: NodePort
+  ports:
+    - port: 80
+      protocol: TCP
+      targetPort: 8080
+      nodePort: 32222
+  selector:
+    app: totem-api
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: totem-api
+  namespace: totem
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-type: nlb
+    service.beta.kubernetes.io/aws-load-balancer-internal: "true"
+spec:
+  ports:
+    - port: 8080
+      protocol: TCP
+  type: LoadBalancer
+  selector:
+    app: totem-api

@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: totem-configmap
+  namespace: totem
+data:
+  MY_CUSTOM_ENV: "Test 001"
