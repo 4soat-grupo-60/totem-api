@@ -1,9 +1,9 @@
-import {OrderItemResponse} from "./order-item.response.model";
-import {ClientResponse} from "./client.response.model";
-import {PaymentResponse} from "./payment.response.model";
+import { OrderItemResponse } from "./order-item.response.model";
+import { PaymentResponse } from "./payment.response.model";
+import { CPF } from "../../domain/value_object/cpf";
 
 export type OrderResponse = {
-  client?: ClientResponse;
+  client_cpf?: CPF;
   payment?: PaymentResponse;
   items: OrderItemResponse[];
   id: number;

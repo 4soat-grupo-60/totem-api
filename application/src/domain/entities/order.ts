@@ -1,14 +1,14 @@
-import { Client } from "./client";
 import { Product } from "./product";
 import { Money } from "../value_object/money";
 import { OrderStatus } from "../value_object/orderStatus";
 import { OrderItem } from "./orderItem";
 import { Payment } from "./payment";
+import { CPF } from "../value_object/cpf";
 
 export class Order {
   private _id: number;
   private _items: Array<OrderItem>;
-  private _client?: Client;
+  private _clientCPF?: CPF;
   private _payment?: Payment;
   private _valueTotal: Money;
   private _status: OrderStatus;
@@ -27,7 +27,7 @@ export class Order {
     items: Array<OrderItem>,
     valueTotal: number,
     status: string,
-    client?: Client,
+    clientCPF?: CPF,
     payment?: Payment,
     createdAt?: Date,
     updatedAt?: Date
@@ -35,7 +35,7 @@ export class Order {
     const o = new Order([]);
     o._id = id;
     o._items = items;
-    o._client = client;
+    o._clientCPF = clientCPF;
     o._payment = payment;
     o._valueTotal = new Money(valueTotal);
     o._status = new OrderStatus(status);
@@ -68,8 +68,8 @@ export class Order {
     return this._items;
   }
 
-  get client(): Client | null {
-    return this._client;
+  get clientCPF(): CPF | null {
+    return this._clientCPF;
   }
 
   get payment(): Payment | null {
@@ -84,8 +84,8 @@ export class Order {
     return this._status;
   }
 
-  setClient(client: Client): void {
-    this._client = client;
+  setClientCPF(cpf: CPF): void {
+    this._clientCPF = cpf;
   }
 
   setStatus(status: OrderStatus): void {

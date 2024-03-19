@@ -1,19 +1,10 @@
-import { Client } from "../domain/entities/client";
 import { Order } from "../domain/entities/order";
 import { Payment } from "../domain/entities/payment";
 import { Product } from "../domain/entities/product";
 import { Category } from "../domain/value_object/category";
-import { CPF } from "../domain/value_object/cpf";
 import { OrderStatus } from "../domain/value_object/orderStatus";
 import { PaymentGatewayResponse } from "../domain/value_object/paymentGatewayResponse";
 import { PaymentStatus } from "../domain/value_object/paymentStatus";
-
-export interface IClientGateway {
-  getClient(cpf: CPF): Promise<Client | undefined>;
-  getClientByID(Id: number): Promise<Client | undefined>;
-  getClients(): Promise<Array<Client>>;
-  save(client: Client): Promise<Client>;
-}
 
 export interface IOrderGateway {
   getOrdersOrdered(): Promise<Array<Order>>;

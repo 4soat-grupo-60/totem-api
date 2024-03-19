@@ -10,18 +10,6 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Client {
-  id         Int       @id @default(autoincrement())
-  cpf        String    @unique
-  email      String    @unique
-  name       String
-  created_at DateTime? @default(now())
-  updated_at DateTime? @updatedAt
-  orders     Order[]
-
-  @@map("clients")
-}
-
 model Product {
   id          Int         @id @default(autoincrement())
   name        String
@@ -37,15 +25,14 @@ model Product {
 }
 
 model Order {
-  id         Int       @id @default(autoincrement())
-  client     Client?   @relation(fields: [client_id], references: [id])
-  client_id  Int?
-  payment_id Int?
-  payment    Payment?  @relation(fields: [payment_id], references: [id])
-  status     String
-  total      Decimal
-  created_at DateTime? @default(now())
-  updated_at DateTime? @updatedAt
+  id          Int       @id @default(autoincrement())
+  client_cpf  String?
+  payment_id  Int?
+  payment     Payment?  @relation(fields: [payment_id], references: [id])
+  status      String
+  total       Decimal
+  created_at  DateTime? @default(now())
+  updated_at  DateTime? @updatedAt
 
   items OrderItem[]
 

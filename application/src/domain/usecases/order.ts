@@ -1,13 +1,13 @@
-import {Order} from "../entities/order";
+import { Order } from "../entities/order";
 import RecordNotFoundError from "../error/RecordNotFoundError";
-import {Client} from "../entities/client";
-import {OrderStatus} from "../value_object/orderStatus";
-import {OrderItem} from "../entities/orderItem";
-import {Payment} from "../entities/payment";
-import {PaymentStatus} from "../value_object/paymentStatus";
+import { OrderStatus } from "../value_object/orderStatus";
+import { OrderItem } from "../entities/orderItem";
+import { Payment } from "../entities/payment";
+import { PaymentStatus } from "../value_object/paymentStatus";
 import ProductInactiveError from "../error/ProductInactiveError";
-import {IClientGateway, IOrderGateway, IProductGateway,} from "../../interfaces/gateways";
-import {OrderItemInput} from "../value_object/orderItemInput";
+import { IOrderGateway, IProductGateway } from "../../interfaces/gateways";
+import { OrderItemInput } from "../value_object/orderItemInput";
+import { CPF } from "../value_object/cpf";
 
 export class OrderUseCases {
   static async save(
@@ -95,18 +95,13 @@ export class OrderUseCases {
   static async linkToClient(
     orderId: number,
     orderGateway: IOrderGateway,
-    clientGateway: IClientGateway,
-    clientId?: number
+    clientCPF?: string
   ): Promise<Order> {
     const order: Order = await orderGateway.getOrderByID(orderId);
 
-    let client: Client = null;
-
-    if (clientId != null) {
-      client = await clientGateway.getClientByID(clientId);
+    if (clientCPF) {
+      order.setClientCPF(new CPF(clientCPF));
     }
-
-    order.setClient(client);
     order.setStatus(OrderStatus.AGUARDANDO_PAGAMENTO);
 
     return await orderGateway.update(order);
@@ -116,7 +111,9 @@ export class OrderUseCases {
     return orderGateway.getOrders();
   }
 
-  static async listAllOrdered(orderGateway: IOrderGateway): Promise<Array<Order>> {
+  static async listAllOrdered(
+    orderGateway: IOrderGateway
+  ): Promise<Array<Order>> {
     return orderGateway.getOrdersOrdered();
   }
 }

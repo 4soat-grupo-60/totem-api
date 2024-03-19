@@ -1,9 +1,7 @@
-import {Order} from "../../domain/entities/order";
-import {OrderResponse} from "../model/order.response.model";
-import {OrderItemPresenter} from "./order-item.presenter";
-import {ClientPresenter} from "./client.presenter";
-import {PaymentPresenter} from "./payment.presenter";
-
+import { Order } from "../../domain/entities/order";
+import { OrderResponse } from "../model/order.response.model";
+import { OrderItemPresenter } from "./order-item.presenter";
+import { PaymentPresenter } from "./payment.presenter";
 
 export class OrderPresenter {
   static mapList(data: Order[]): OrderResponse[] {
@@ -12,7 +10,7 @@ export class OrderPresenter {
 
   static map(data: Order): OrderResponse {
     return {
-      client: data.client ? ClientPresenter.map(data.client) : null,
+      client_cpf: data.clientCPF ? data.clientCPF : null,
       payment: data.payment ? PaymentPresenter.map(data.payment) : null,
       items: data.items.map(OrderItemPresenter.map),
       id: data.id,
@@ -23,4 +21,3 @@ export class OrderPresenter {
     };
   }
 }
-

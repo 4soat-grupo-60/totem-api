@@ -1,6 +1,5 @@
-import {Product} from "../../domain/entities/product";
-import {ProductResponse} from "../model/product.response.model";
-
+import { Product } from "../../domain/entities/product";
+import { ProductResponse } from "../model/product.response.model";
 
 export class ProductPresenter {
   static mapList(data: Product[]): ProductResponse[] {

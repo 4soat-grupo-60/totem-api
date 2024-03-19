@@ -5,7 +5,7 @@ import { Product } from "../../domain/entities/product";
 import { Category } from "../../domain/value_object/category";
 import { handleAPIError } from "../error/APIErrorHandler";
 import { DbConnection } from "../../interfaces/dbconnection";
-import {ProductController} from "../../controllers/product.controller";
+import { ProductController } from "../../controllers/product.controller";
 
 export default class ProductRoute implements IAppRoute {
   private dbConnection: DbConnection;

@@ -5,13 +5,13 @@ import * as cors from "cors";
 import * as compression from "compression";
 import IAppRoute from "../interfaces/IAppRoute";
 import OrderRoute from "./routes/OrderRoute";
-import ClientRoute from "./routes/ClientRoute";
 import ProductRoute from "./routes/ProductRoute";
 import OrderQueueRoute from "./routes/OrderQueueRoute";
 import PaymentRoute from "./routes/PaymentRoute";
 import swaggerUi = require("swagger-ui-express");
 import fs = require("fs");
 import { DbConnection } from "../interfaces/dbconnection";
+import "dotenv/config";
 
 export default class StartUp {
   private dbConnection: DbConnection;
@@ -52,7 +52,6 @@ export default class StartUp {
   initRoutes() {
     let routes: IAppRoute[] = [
       new OrderRoute(this.dbConnection),
-      new ClientRoute(this.dbConnection),
       new ProductRoute(this.dbConnection),
       new OrderQueueRoute(this.dbConnection),
       new PaymentRoute(this.dbConnection),

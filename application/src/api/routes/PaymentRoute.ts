@@ -4,7 +4,7 @@ import IAppRoute from "../../interfaces/IAppRoute";
 import { PaymentStatus } from "../../domain/value_object/paymentStatus";
 import { handleAPIError } from "../error/APIErrorHandler";
 import { DbConnection } from "../../interfaces/dbconnection";
-import {PaymentController} from "../../controllers/payment.controller";
+import { PaymentController } from "../../controllers/payment.controller";
 
 export default class PaymentRoute implements IAppRoute {
   private dbConnection: DbConnection;

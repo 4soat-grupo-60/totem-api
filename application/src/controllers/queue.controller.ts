@@ -1,7 +1,7 @@
-import {OrderGateway} from "../gateways/repositories/orders";
-import {DbConnection} from "../interfaces/dbconnection";
-import {OrderQueueUseCases} from "../domain/usecases/queue";
-import {OrderPresenter} from "./presenters/order.presenter";
+import { OrderGateway } from "../gateways/repositories/orders";
+import { DbConnection } from "../interfaces/dbconnection";
+import { OrderQueueUseCases } from "../domain/usecases/queue";
+import { OrderPresenter } from "./presenters/order.presenter";
 
 export class OrderQueueController {
   static async getOrdersWithStatusPending(dbConnection: DbConnection) {
@@ -29,4 +29,3 @@ export class OrderQueueController {
     return OrderPresenter.mapList(orders);
   }
 }
-

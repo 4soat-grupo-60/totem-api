@@ -3,7 +3,7 @@ import * as express from "express";
 import IAppRoute from "../../interfaces/IAppRoute";
 import { DbConnection } from "../../interfaces/dbconnection";
 import { handleAPIError } from "../error/APIErrorHandler";
-import {OrderQueueController} from "../../controllers/queue.controller";
+import { OrderQueueController } from "../../controllers/queue.controller";
 
 export default class OrderQueueRoute implements IAppRoute {
   private dbConnection: DbConnection;

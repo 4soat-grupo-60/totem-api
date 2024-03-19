@@ -1,9 +1,9 @@
-import {Product} from "../domain/entities/product";
-import {Category} from "../domain/value_object/category";
-import {ProductGateway} from "../gateways/repositories/products";
-import {DbConnection} from "../interfaces/dbconnection";
-import {ProductUseCases} from "../domain/usecases/product";
-import {ProductPresenter} from "./presenters/product.presenter";
+import { Product } from "../domain/entities/product";
+import { Category } from "../domain/value_object/category";
+import { ProductGateway } from "../gateways/repositories/products";
+import { DbConnection } from "../interfaces/dbconnection";
+import { ProductUseCases } from "../domain/usecases/product";
+import { ProductPresenter } from "./presenters/product.presenter";
 
 export class ProductController {
   static async getAllProducts(dbConnection: DbConnection) {
@@ -13,7 +13,10 @@ export class ProductController {
     return ProductPresenter.mapList(allProducts);
   }
 
-  static async getAllProductsByCategory(category: Category, dbConnection: DbConnection) {
+  static async getAllProductsByCategory(
+    category: Category,
+    dbConnection: DbConnection
+  ) {
     const productGateway = new ProductGateway(dbConnection);
     const allProductsByCategory = await ProductUseCases.listByCategory(
       category,
@@ -43,10 +46,6 @@ export class ProductController {
 
   static async deleteProduct(productId: number, dbConnection: DbConnection) {
     const productGateway = new ProductGateway(dbConnection);
-    return await ProductUseCases.delete(
-      productId,
-      productGateway
-    );
+    return await ProductUseCases.delete(productId, productGateway);
   }
 }
-

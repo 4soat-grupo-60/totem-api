@@ -1,11 +1,13 @@
 import * as express from "express";
+import axios from "axios";
+import "dotenv/config";
 
 import IAppRoute from "../../interfaces/IAppRoute";
 import { handleAPIError } from "../error/APIErrorHandler";
 import { OrderStatus } from "../../domain/value_object/orderStatus";
 import { DbConnection } from "../../interfaces/dbconnection";
-import {OrderItemInput} from "../../domain/value_object/orderItemInput";
-import {OrderController} from "../../controllers/order.controller";
+import { OrderItemInput } from "../../domain/value_object/orderItemInput";
+import { OrderController } from "../../controllers/order.controller";
 
 export default class OrderRoute implements IAppRoute {
   private dbConnection: DbConnection;
@@ -55,15 +57,32 @@ export default class OrderRoute implements IAppRoute {
     });
 
     app
-      .route(`${this.ROUTE_BASE_PATH}/link/:orderId/client/:clientId`)
+      .route(`${this.ROUTE_BASE_PATH}/link/:orderId/client/:clientCpf`)
       .put(async (req, res) => {
         try {
           const orderId = Number(req.params.orderId);
-          const clientId = Number(req.params.clientId);
+          const clientCpf = String(req.params.clientCpf);
+
+          const clientCpfFormatted = clientCpf
+            ?.replace(".", "")
+            .replace(".", "")
+            .replace(".", "")
+            .replace("-", "");
+
+          await axios
+            .post(process.env.API_GATEWAY_LAMBDA_COGNITO + "/login", {
+              cpf: clientCpfFormatted,
+            })
+            .then((response) => {
+              console.log("Autenticado");
+            })
+            .catch((error) => {
+              throw new Error("Cliente não encontrado");
+            });
 
           const order = await OrderController.linkClientToOrder(
             orderId,
-            clientId,
+            clientCpfFormatted,
             this.dbConnection
           );
 
