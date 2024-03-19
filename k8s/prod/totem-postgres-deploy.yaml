@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: totem-postgres
+  namespace: totem
+  labels:
+    app: totem-postgres
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: totem-postgres
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: totem-postgres
+    spec:
+      volumes:
+      - name: totem-postgres
+        persistentVolumeClaim:
+          claimName: totem-postgres
+      containers:
+      - name: totem-postgres
+        envFrom:
+        - configMapRef:
+            name: totem-configmap
+        - secretRef:
+            name: totem-postgres
+        image: postgres:16.0
+        imagePullPolicy: Always
+        workingDir: /application
+        #imagePullPolicy: IfNotPresent
+        volumeMounts:
+        - name: totem-postgres
+          mountPath: /application/postgres
+        ports:
+        - containerPort: 5432
+        resources:
+          limits:
+            cpu: 500m
+            memory: 512Mi
+          requests:
+            cpu: 100m
+            memory: 512Mi
+      imagePullSecrets:
+      - name: dockerhub
+      restartPolicy: Always
