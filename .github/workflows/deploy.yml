@@ -55,11 +55,11 @@ jobs:
           GENERATED_IMG_TAG: ${{ steps.build-image.outputs.last_image }}
 
         run: |
-          sed s@**LATEST_IMAGE@$GENERATED_IMG_TAG@ k8s/prod/totem-api-deploy.yaml.tmpl > ./k8s/prod/totem-api-deploy.yaml
-          sed s@**DB_HOST@$PROD_TOTEM_POSTGRESQL_HOST@ k8s/prod/totem-postgres-secrets.yaml.tmpl > ./k8s/prod/secrets1.yaml.tmpl
-          sed s@**DB_PORT@$PROD_TOTEM_POSTGRESQL_PORT@ k8s/prod/secrets1.yaml.tmpl > ./k8s/prod/secrets2.yaml.tmpl
-          sed s@**DB_USER@$PROD_TOTEM_POSTGRESQL_USERNAME@ k8s/prod/secrets2.yaml.tmpl > ./k8s/prod/secrets3.yaml.tmpl
-          sed s@**DB_PASS@$PROD_TOTEM_POSTGRESQL_PASSWORD@ k8s/prod/secrets3.yaml.tmpl > ./k8s/prod/secrets.yaml
+          sed s@**LATEST_IMAGE@$GENERATED_IMG_TAG@  ./k8s/prod/totem-api-deploy.yaml.tmpl > k8s/prod/totem-api-deploy.yaml
+          sed s@**DB_HOST@$PROD_TOTEM_POSTGRESQL_HOST@  ./k8s/prod/totem-postgres-secrets.yaml.tmpl > k8s/prod/secrets1.yaml.tmpl
+          sed s@**DB_PORT@$PROD_TOTEM_POSTGRESQL_PORT@  ./k8s/prod/secrets1.yaml.tmpl > k8s/prod/secrets2.yaml.tmpl
+          sed s@**DB_USER@$PROD_TOTEM_POSTGRESQL_USERNAME@  ./k8s/prod/secrets2.yaml.tmpl > k8s/prod/secrets3.yaml.tmpl
+          sed s@**DB_PASS@$PROD_TOTEM_POSTGRESQL_PASSWORD@  ./k8s/prod/secrets3.yaml.tmpl > k8s/prod/secrets.yaml
 
       - name: Create kubeconfig
         run: aws eks update-kubeconfig --region us-east-1 --name totem-cluster
