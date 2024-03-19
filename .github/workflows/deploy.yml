@@ -69,7 +69,7 @@ jobs:
           kubectl apply \
           -f k8s/prod/namespace.yaml \
           -f k8s/prod/totem-configmap.yaml \
-          -f k8s/prod/totem-postgres-secrets.yaml \
+          -f k8s/prod/totem-postgres-secrets.yml \
           -f k8s/prod/totem-api-deploy \
           -f k8s/prod/totem-api-svc.yaml \
 
