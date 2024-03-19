@@ -39,16 +39,16 @@ jobs:
           docker build -t $ECR_URL:$IMAGE_TAG .
           docker push $ECR_URL:$IMAGE_TAG
           echo "image=$ECR_URL:$IMAGE_TAG" >> $GITHUB_ENV
-      - name: Configure Kubernetes context
-        run: aws eks update-kubeconfig --region ${{ env.AWS_REGION }} --name ${{ secrets.EKS_CLUSTER_NAME }}
+      # - name: Configure Kubernetes context
+      #   run: aws eks update-kubeconfig --region ${{ env.AWS_REGION }} --name ${{ secrets.EKS_CLUSTER_NAME }}
 
-      - name: Kubernetes deployment
-        run: |
-          kubectl apply \
-          -f k8s/namespace.yaml \
-          -f k8s/totem-configmap.yaml \
-          -f k8s/totem-postgres-secrets.yaml \
-          -f k8s/totem-api-deploy.yaml \
-          -f k8s/totem-api-svc.yaml \
-          -f k8s/totem-hpa.yaml
+      # - name: Kubernetes deployment
+      #   run: |
+      #     kubectl apply \
+      #     -f k8s/namespace.yaml \
+      #     -f k8s/totem-configmap.yaml \
+      #     -f k8s/totem-postgres-secrets.yaml \
+      #     -f k8s/totem-api-deploy.yaml \
+      #     -f k8s/totem-api-svc.yaml \
+      #     -f k8s/totem-hpa.yaml
 
