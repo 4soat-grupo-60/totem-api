@@ -9,4 +9,4 @@ data:
   PGDATA: /application/postgres
   POSTGRES_HOST_AUTH_METHOD: trust
   DATABASE_URL: "postgresql://totem:totem@totem-postgres:5432/totem"
-  PORT: "3000"
+  PORT: "8080"

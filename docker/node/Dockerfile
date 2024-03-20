@@ -35,3 +35,4 @@ RUN chmod 777 /var/bin/docker-entrypoint.sh
 ENTRYPOINT /var/bin/docker-entrypoint.sh
 
 EXPOSE 80
+EXPOSE 8080
