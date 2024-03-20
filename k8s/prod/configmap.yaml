@@ -4,4 +4,4 @@ metadata:
   name: totem-configmap
   namespace: totem
 data:
-  MY_CUSTOM_ENV: "Test 001"
+  PORT: "8080"
